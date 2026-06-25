@@ -1,6 +1,8 @@
 # Metaphorical Usage as Contextual Embedding Shift
 
-A small proof-of-concept NLP experiment for testing whether metaphorical verb usages show a measurable shift in contextual embedding space.
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/12dWOUjs7eKUc2bp9H7w3IB-RIOsa4P0c?usp=sharing)
+
+A small proof-of-concept NLP experiment testing whether metaphorical verb usages show a measurable shift in contextual embedding space.
 
 This project was developed for the course **Figurative Language and NLP** at the University of Tübingen. It is intended as a transparent research MVP rather than a production-ready metaphor detection system.
 
@@ -10,7 +12,7 @@ The project asks a focused question:
 
 > Do metaphorical uses of a verb occur farther away from the verb's literal-use centroid in contextual embedding space?
 
-The broader theoretical motivation is that figurative language may be better understood as a continuous semantic-pragmatic space rather than as a set of strictly discrete categories. For this MVP, the scope is deliberately reduced to **English verb metaphors** and to one operational proxy: the distance between a contextual target-token embedding and a lemma-specific literal centroid.
+The broader theoretical motivation is that figurative language may be better understood as a continuous semantic-pragmatic space rather than as a set of strictly discrete rhetorical categories. For this MVP, the scope is deliberately reduced to **English verb metaphors** and to one operational proxy: the distance between a contextual target-token embedding and a lemma-specific literal centroid.
 
 The main experiment uses **RoBERTa-base** target-token embeddings on a sampled subset of **VUA20 verb instances**. For each target verb, the notebook extracts its contextual embedding, computes lemma-specific literal centroids, and compares literal and metaphorical usages using cosine distance.
 
@@ -18,7 +20,7 @@ The main experiment uses **RoBERTa-base** target-token embeddings on a sampled s
 
 This repository currently represents an MVP / course-project prototype.
 
-- The notebook runs in Google Colab.
+- The main notebook runs in **Google Colab**.
 - The MVP uses a sampled VUA20 verb subset.
 - The current results provide weak-to-moderate support for the contextual embedding shift hypothesis.
 - The project should not be interpreted as a complete theory of metaphor or a state-of-the-art metaphor detector.
@@ -113,7 +115,7 @@ Metaphorical verb usages are farther from lemma-specific literal centroids acros
 | Mean-centered + L2 | 0.4508 | 0.5260 | 0.0751 | 8.77e-15 | 0.387 |
 | Remove PC1 + L2 | 0.4600 | 0.5331 | 0.0731 | 1.28e-13 | 0.369 |
 
-Interpretation: the result supports a weak version of the contextual embedding shift hypothesis. However, the effect size is small to moderate, so the result should be framed as a geometric tendency rather than proof of a complete metaphor theory.
+**Interpretation:** the result supports a weak version of the contextual embedding shift hypothesis. However, the effect size is small to moderate, so the result should be framed as a geometric tendency rather than proof of a complete metaphor theory.
 
 ### 2. Classification sanity check
 
@@ -128,7 +130,7 @@ Simple classifiers perform only slightly above the majority baseline.
 
 Majority baseline accuracy: approximately `0.556`.
 
-Interpretation: RoBERTa target-token embeddings contain metaphor-relevant signal, but the signal is weak under grouped-by-lemma generalization.
+**Interpretation:** RoBERTa target-token embeddings contain metaphor-relevant signal, but the signal is weak under grouped-by-lemma generalization.
 
 ### 3. Anisotropy diagnostics
 
@@ -138,43 +140,39 @@ This means anisotropy correction should be treated as a robustness and interpret
 
 ## How to Run
 
-The notebook is designed for Google Colab.
+### Option 1: Open in Google Colab
 
-### 1. Open the notebook
-
-Upload or open:
+Use the badge at the top of this README, or open the notebook directly in Colab:
 
 ```text
-notebooks/metaphor_embedding_shift_mvp_vua20_roberta.ipynb
+https://colab.research.google.com/drive/12dWOUjs7eKUc2bp9H7w3IB-RIOsa4P0c?usp=sharing
 ```
 
-### 2. Use a GPU runtime
-
-In Colab:
+In Colab, select a GPU runtime:
 
 ```text
 Runtime -> Change runtime type -> GPU
 ```
 
-### 3. Install dependencies
+Then run all cells.
 
-The first notebook cell installs the required packages:
+### Option 2: Run the repository notebook
 
-```python
-!pip -q install datasets transformers accelerate scikit-learn scipy pandas numpy matplotlib tqdm nltk
+Open the notebook from this repository:
+
+```text
+notebooks/metaphor_embedding_shift_mvp_vua20_roberta.ipynb
 ```
-
-### 4. Run all cells
 
 The notebook will:
 
-1. Load VUA20 from Hugging Face.
-2. Normalize labels and infer relevant columns.
-3. Filter to verb targets.
-4. Sample lemmas with both literal and metaphorical usages.
-5. Extract target-token embeddings from RoBERTa-base.
-6. Run distance analysis, classification, and anisotropy diagnostics.
-7. Save output tables and plots.
+1. load VUA20 from Hugging Face;
+2. normalize labels and infer relevant columns;
+3. filter to verb targets;
+4. sample lemmas with both literal and metaphorical usages;
+5. extract target-token embeddings from RoBERTa-base;
+6. run distance analysis, classification, and anisotropy diagnostics;
+7. save output tables and plots.
 
 Default output directory in Colab:
 
@@ -182,32 +180,13 @@ Default output directory in Colab:
 /content/metaphor_mvp_outputs
 ```
 
-## Suggested Repository Structure
+### Optional local setup
 
-```text
-metaphor-embedding-shift-mvp/
-├── README.md
-├── LICENSE
-├── .gitignore
-├── requirements.txt
-├── notebooks/
-│   └── metaphor_embedding_shift_mvp_vua20_roberta.ipynb
-├── docs/
-│   ├── metaphorical_usage_embedding_shift_proposal.pdf
-│   └── Project_Context_FNLP.md
-└── results/
-    ├── tables/
-    │   ├── literal_centroid_distance_summary.csv
-    │   ├── classification_results_by_split.csv
-    │   └── anisotropy_metrics.csv
-    └── figures/
-        ├── distance_boxplot_L2.png
-        ├── distance_boxplot_Mean-centered_plus_L2.png
-        ├── distance_boxplot_Remove_PC1_plus_L2.png
-        └── classification_macro_f1.png
+The notebook is primarily designed for Colab. For local reproduction, install the dependencies with:
+
+```bash
+pip install -r requirements.txt
 ```
-
-The `results/` directory is optional for the first public version. If uploaded, it should contain only aggregate outputs and figures, not the raw dataset.
 
 ## Files in This Repository
 
@@ -218,7 +197,7 @@ The `results/` directory is optional for the first public version. If uploaded, 
 | `docs/metaphorical_usage_embedding_shift_proposal.pdf` | Short proposal / project write-up |
 | `docs/Project_Context_FNLP.md` | Extended project context and iteration plan |
 | `requirements.txt` | Optional dependency list for local reproduction |
-| `results/` | Optional aggregate outputs and plots |
+| `results/` | Aggregate output tables and plots, if included |
 
 ## Limitations
 
@@ -258,13 +237,11 @@ Planned improvements:
 
 ## Data and License Notes
 
-This repository does not need to include the raw VUA20 dataset. The notebook loads the dataset through Hugging Face during execution.
+This repository does not redistribute the raw VUA20 dataset. The notebook loads the dataset through Hugging Face during execution.
 
-Recommended public setup:
+The code and documentation in this repository are released under the MIT License. Dataset licensing and redistribution terms belong to the original dataset providers.
 
-- License the code and documentation under the MIT License.
-- Do not redistribute raw VUA20 data unless its license and redistribution terms are checked separately.
-- Keep generated model caches, checkpoints, and local Colab outputs out of version control unless they are small aggregate result files.
+Generated model caches, checkpoints, and large local Colab outputs should not be committed to version control unless they are small aggregate result files.
 
 ## Course Context
 
