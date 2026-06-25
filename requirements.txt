@@ -1,31 +1,27 @@
-# ============================
 # Figurative NLP MVP
 # Metaphorical Usage as Contextual Embedding Shift
-# ============================
 
-# Deep Learning
+# Deep learning / NLP
 torch>=2.2
 transformers>=4.40
 datasets>=2.19
 tokenizers>=0.15
 accelerate>=0.30
 
-# Scientific Computing
+# Scientific computing
 numpy>=1.26
 pandas>=2.2
 scipy>=1.12
 scikit-learn>=1.4
 
-# NLP
+# NLP utilities
 nltk>=3.8
 
 # Visualization
 matplotlib>=3.8
 
-# Notebook
+# Notebook / progress utilities
 jupyter>=1.0
 ipywidgets>=8.1
 tqdm>=4.66
-
-# Utilities
 joblib>=1.3
