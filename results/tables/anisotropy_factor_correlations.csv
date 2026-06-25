@@ -1,0 +1,5 @@
+factor,correlation_with_pc1,p_value,correlation_type
+sent_len,-0.29163537829693265,7.78453481516715e-33,spearman
+subword_count,-0.46371727324418294,2.2659591076183433e-86,spearman
+lemma_freq_in_sample,0.1151207890189906,3.7675893595300285e-06,spearman
+label_bin,-0.028821356202255222,0.2485025017828743,pearson
